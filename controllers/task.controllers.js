@@ -74,7 +74,7 @@ const updateTask = async (req, res) => {
         title,
         description,
         dueDate,
-        status
+        status,
       },
       { new: true }
     );
@@ -119,4 +119,27 @@ const deleteTask = async (req, res) => {
   }
 };
 
-export { createTask, getTasks, updateTask, deleteTask };
+const getSpecificTasks = async (req, res) => {
+  try {
+    const { id } = req?.params;
+
+    const task = await Task.findById(id);
+
+    if (!task) {
+      return res
+        .status(404)
+        .json({ status: "error", message: "No tasks found" });
+    }
+
+    return res
+      .status(200)
+      .json({ status: "success", message: "Tasks found successfully", task });
+  } catch (error) {
+    console.error("Error retrieving tasks:", error);
+    return res
+      .status(500)
+      .json({ status: "error", message: "Internal server error" });
+  }
+};
+
+export { createTask, getTasks, updateTask, deleteTask, getSpecificTasks };
