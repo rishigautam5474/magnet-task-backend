@@ -13,6 +13,13 @@ const registerUser = async (req, res) => {
       });
     }
 
+    const userCheckEmail = await User.findOne({ email: email });
+    if (userCheckEmail) {
+      return res
+        .status(409)
+        .json({ status: "error", message: "Email is already exist" });
+    }
+
     const user = await User.create({
       name,
       email,
@@ -70,9 +77,9 @@ const loginUser = async (req, res) => {
 
 const getTaskByUser = async (req, res) => {
   try {
-    const userid = req?.user; 
+    const userid = req?.user;
     // console.log("User ID:", userid);
-    
+
     const tasks = await Task.find({ userid });
 
     if (!tasks) {
@@ -91,6 +98,5 @@ const getTaskByUser = async (req, res) => {
       .json({ status: "error", message: "Internal server error" });
   }
 };
-
 
 export { registerUser, loginUser, getTaskByUser };

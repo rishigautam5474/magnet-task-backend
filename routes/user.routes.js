@@ -3,11 +3,14 @@ import { getTaskByUser, loginUser, registerUser } from "../controllers/user.cont
 import authentication from "../middlewares/auth.middleware.js";
 const router = express.Router();
 
+// Router
 router.post("/register", registerUser)
 router.post('/login', loginUser)
 
+// Middleware
 router.use(authentication)
 
+// Router
 router.get("/task-lists", getTaskByUser)
 
 

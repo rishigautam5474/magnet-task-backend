@@ -8,9 +8,12 @@ import {
 import authentication from "../middlewares/auth.middleware.js";
 const router = express.Router();
 
+router.get("/", getTasks);
+
+// Miidleware
 router.use(authentication);
 
-router.get("/", getTasks);
+//Router
 router.post("/create", createTask);
 router.delete("/:id", deleteTask);
 router.put("/:id", updateTask);

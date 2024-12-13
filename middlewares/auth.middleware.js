@@ -7,7 +7,10 @@ async function authentication(req, res, next) {
   if (!token) {
     return res
       .status(401)
-      .json({ status: "Error", message: "Unauthorized user" });
+      .json({
+        status: "Error",
+        message: "You must log in first to access this resource",
+      });
   }
 
   try {

@@ -3,10 +3,10 @@ import User from "../models/user.model.js";
 
 const createTask = async (req, res) => {
   try {
-    const { title, description, dueDate, priority } = req.body;
+    const { title, description, dueDate, priority, status } = req.body;
     const userId = req?.user;
 
-    if (!title || !dueDate || !priority) {
+    if (!title || !dueDate || !priority || !status) {
       return res.status(400).json({
         status: "error",
         message: "All fields are required",
@@ -19,6 +19,7 @@ const createTask = async (req, res) => {
       description,
       dueDate,
       priority,
+      status,
       userid: userId,
     });
     const update = {
